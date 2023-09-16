@@ -26,8 +26,10 @@ finally {
 
 await Deno.writeTextFile('./static/wasm/bundle.js', `import { initSync } from 'app.js'\ninitSync(new WebAssembly.Module(Uint8Array.from(atob('${btoa([ ...await Deno.readFile('./static/wasm/app_bg.wasm') ].map(byte => String.fromCharCode(byte)).join(''))}').split('').map(char => char.charCodeAt(0)))))`)
 
-await esbuild('./static/wasm/bundle.js', './static/js/main.js', false)
-await esbuild('./static/wasm/bundle.js', './static/js/main.min.js', true)
+await Promise.allSettled([
+	esbuild('./static/wasm/bundle.js', './static/js/main.js', false),
+	esbuild('./static/wasm/bundle.js', './static/js/main.min.js', true)
+])
 stop()
 
 await Deno.remove('./static/wasm/', { recursive: true })
