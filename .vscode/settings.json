@@ -1,0 +1,12 @@
+{
+	"cSpell.words": [
+		"bindgen",
+		"deno",
+		"leptos",
+		"outfile"
+	],
+	"liveServer.settings.root": "/static",
+	"deno.enable": true,
+	"deno.lint": true,
+	"deno.unstable": false
+}
