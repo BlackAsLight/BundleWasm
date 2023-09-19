@@ -24,7 +24,7 @@ finally {
 	await Deno.mkdir('./static/js/', { recursive: true })
 }
 
-await Deno.writeTextFile('./static/wasm/bundle.js', `import { initSync } from 'app.js'\ninitSync(new WebAssembly.Module(Uint8Array.from(atob('${btoa([ ...await Deno.readFile('./static/wasm/app_bg.wasm') ].map(byte => String.fromCharCode(byte)).join(''))}').split('').map(char => char.charCodeAt(0)))))`)
+await Deno.writeTextFile('./static/wasm/bundle.js', `import x from './app.js'\nawait x(fetch('data:application/wasm;base64,${btoa([ ...await Deno.readFile('./static/wasm/app_bg.wasm') ].map(byte => String.fromCharCode(byte)).join('')) }'))`)
 
 await Promise.allSettled([
 	esbuild('./static/wasm/bundle.js', './static/js/main.js', false),
@@ -32,5 +32,4 @@ await Promise.allSettled([
 ])
 stop()
 
-await Deno.remove('./static/wasm/', { recursive: true })
 console.log(`${performance.now().toLocaleString('en-US', { maximumFractionDigits: 2 })}ms`)
