@@ -27,7 +27,7 @@ function stringToUint8Array(text: string): Uint8Array {
 }
 
 const maxDataURLSize = Math.max((parseInt(Deno.env.get('MAX_DATA_URL_SIZE') ?? '0') || Infinity) - 'data:application/wasm,'.length, 1024)
-const maxYieldStringSize = Math.max(parseInt(Deno.env.get('MAX_YIELD_STRING_SIZE') ?? '0') || maxDataURLSize, 1024)
+const maxYieldStringSize = Math.max(parseInt(Deno.env.get('MAX_YIELD_STRING_SIZE') ?? '0') || maxDataURLSize === 1024 ? 0 : maxDataURLSize + 'data:application/wasm,'.length, 1024)
 
 try {
 	await Deno.remove('./static/js/', { recursive: true })
