@@ -14,3 +14,6 @@ debug:
 clean:
 	cargo clean
 	rm -rf static/js/ static/wasm/
+
+lock:
+	deno cache --lock-write bundle.ts
