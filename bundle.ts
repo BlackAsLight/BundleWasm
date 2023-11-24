@@ -1,8 +1,8 @@
 // deno-lint-ignore-file no-empty
-import { encodeBase64 } from 'https://deno.land/std@0.205.0/encoding/base64.ts'
-// @deno-types="https://deno.land/x/esbuild@v0.17.19/mod.d.ts"
-import { build, stop } from 'https://deno.land/x/esbuild@v0.17.19/mod.js'
-import { denoPlugins } from 'https://deno.land/x/esbuild_deno_loader@0.7.0/mod.ts'
+import { encodeBase64 } from 'https://deno.land/std@0.208.0/encoding/base64.ts'
+// @deno-types="https://deno.land/x/esbuild@v0.19.6/mod.d.ts"
+import { build, stop } from 'https://deno.land/x/esbuild@v0.19.6/mod.js'
+import { denoPlugins } from 'https://deno.land/x/esbuild_deno_loader@0.8.2/mod.ts'
 
 async function esbuild(inPath: string, outPath: string, minify: boolean): Promise<void> {
 	const { errors, warnings } = await build({
@@ -40,7 +40,7 @@ finally {
 if (sizeInBase64((await Deno.stat('./static/wasm/app_bg.wasm')).size) > maxDataURLSize) {
 	const writeFile = await Deno.create('./static/wasm/bundle.ts')
 	await writeFile.write(stringToUint8Array('\
-import { decodeBase64 } from \'https://deno.land/std@0.205.0/encoding/base64.ts\'\n\
+import { decodeBase64 } from \'https://deno.land/std@0.208.0/encoding/base64.ts\'\n\
 import x from \'./app.js\'\n\
 x(new Response(ReadableStream.from((function* () {\n'))
 	const readFile = await Deno.open('./static/wasm/app_bg.wasm')

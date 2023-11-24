@@ -8,13 +8,21 @@ edition = "2021"
 [dependencies]
 console_error_panic_hook = "0.1.x"
 console_log = "1.0.x"
-leptos = { version = "0.4.*", features = [
+leptos = { version = "0.5.*", features = [
 	"nightly",
 	'csr',
 ] }
-leptos_meta = { version = "0.4.x", features = [
+leptos_meta = { version = "0.5.x", features = [
 	"nightly",
 	"csr",
 ] }
-log = "0.4.20"
+log = "0.4.x"
 wasm-bindgen = "0.2.x"
+
+[profile.release]
+lto = true
+opt-level = 'z'
+
+[profile.dev]
+lto = true
+opt-level = 'z'

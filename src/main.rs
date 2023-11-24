@@ -6,14 +6,14 @@ fn main() {
 	console_error_panic_hook::set_once();
 	console_log::init_with_level(Level::Debug).unwrap();
 
-	leptos::mount_to_body(move |cx| view! { cx, <App /> });
+	leptos::mount_to_body(move || view! { <App /> });
 }
 
 #[component]
-fn App(cx: Scope) -> impl IntoView {
-	provide_meta_context(cx);
+fn App() -> impl IntoView {
+	provide_meta_context();
 
-	view! { cx,
+	view! {
 		<Title text="Home" />
 
 		<h1>"Hello World!"</h1>
